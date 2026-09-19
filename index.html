@@ -156,6 +156,32 @@
             pointer-events: none;
             user-select: none;
         }
+
+        svg  {
+            [data-ring="outer"] {
+                fill: rgba(255, 0, 0, 0.25);
+            }
+
+            [data-ring="middle"] {
+                fill: rgba(255, 0, 0, 0.5);
+            }
+
+            [data-ring="inner"] {
+                fill: rgba(255, 0, 0, 0.75);
+            }
+
+            [data-ring="center"] {
+                fill: red;
+            }
+        }
+
+        #player1 {
+            color: green;   
+        }
+
+        #player2 {
+            color: blue;
+        }
     </style>
 </head>
 <body>
@@ -208,7 +234,7 @@
                     </tr>
                     <tr class="player active">
                         <td>
-                            <svg id="player1" color="red">
+                            <svg id="player1">
                                 <use href="#knight" />
                             </svg>
                         </td>
@@ -219,7 +245,7 @@
                     </tr>
                     <tr class="player">
                         <td>
-                            <svg id="player1" color="blue">
+                            <svg id="player2">
                                 <use href="#knight" />
                             </svg>
                         </td>
