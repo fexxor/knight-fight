@@ -489,6 +489,14 @@
                                 </li>
                             </ul>
                         </li>
+                        <li>
+                            <b>Muta (kanske försvinner)</b>
+                            <ul>
+                                <li>
+                                    Den aktiva spelaren kan välja att använda 1500 guld för att betala sig in ett steg närmre hovet.
+                                </li>
+                            </ul>
+                        </li>
                     </ul>
                 
                 <h3>Duell</h3>
@@ -521,72 +529,15 @@
                     Varje spelare kan samla guld genom att landa på en ruta med guld, eller genom att vinna dueller.
                 </p>
                 <p>
-                    Guld kan användas för att köpa bättre rustning, vapen eller häst.
+                    Guld kan användas för att köpa bättre rustning, vapen eller häst. Alla spelare börjar med den första nivån av rustning, vapen och häst.
                 </p>
-                <h4>Rustning</h4>
-                <table>
-                    <tr>
-                        <th>Nivå</th>
-                        <th>Kostnad</th>
-                        <th>Effekt</th>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>0</td>
-                        <td>+1 i försvar</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>100</td>
-                        <td>+2 i försvar</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>200</td>
-                        <td>+3 i försvar</td>
-                    </tr>
-                </table>
-                <h4>Vapen</h4>
-                <table>
-                    <tr>
-                        <th>Nivå</th>
-                        <th>Kostnad</th>
-                        <th>Effekt</th>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>0</td>
-                        <td>*1 i anfall</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>100</td>
-                        <td>*2 i anfall</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>200</td>
-                        <td>*3 i anfall</td>
-                    </tr>
-                </table>
-                <h4>Häst</h4>
-                <table>
-                    <tr>
-                        <th>Nivå</th>
-                        <th>Kostnad</th>
-                        <th>Effekt</th>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>0</td>
-                        <td>Ingen effekt</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>100</td>
-                        <td>Kan stanna när som helst</td>
-                    </tr>
-                </table>
+
+                <div id="shop-upgrades"></div>
+
+                <h3>Hur vinner man?</h3>
+                <p>
+                    <b>Den spelare som först når hovet vinner spelet.</b> Det finns dock ett specialfall när man bara är två som spelar, att man kan hamna i den inre cikeln, medan motspelaren är kvar i den yttre. De kommer aldrig kunna mötas i duell igen, och då vinner den spelare som kommit in i den inre cirkeln först.
+                </p>
             </div>
         </aside>
     </main>
@@ -597,57 +548,107 @@
 
         const shop = {
             armor: {
-                1: {
-                    cost: 0,
-                    effect: 1,
-                    description: 'Enkel rustning som ger +1 i försvar.',
-                },
-                2: {
-                    cost: 100,
-                    effect: 2,
-                    description: 'Bättre rustning som ger +2 i försvar.',
-                },
-                3: {
-                    cost: 200,
-                    effect: 3,
-                    description: 'Bäst rustning som ger +3 i försvar.',
-                },
+                title: 'Rustning',
+                description: "Rustningar gör dig mer motståndskraftig. Varje nivå adderar till din försvarsförmåga.",
+                levels: {
+                    1: {
+                        cost: 0,
+                        effect: 1,
+                        description: 'Enkel rustning som ger +1 i försvar.',
+                    },
+                    2: {
+                        cost: 700,
+                        effect: 7,
+                        description: 'Bättre rustning som ger +7 i försvar.',
+                    },
+                    3: {
+                        cost: 1400,
+                        effect: 14,
+                        description: 'Bäst rustning som ger +14 i försvar.',
+                    },
+                }
             },
             weapon: {
-                1: {
-                    cost: 0,
-                    effect: 1,
-                    description: 'Enkel vapen som ger *1 i anfall.',
-                },
-                2: {
-                    cost: 100,
-                    effect: 2,
-                    description: 'Bättre vapen som ger *2 i anfall.',
-                },
-                3: {
-                    cost: 200,
-                    effect: 3,
-                    description: 'Bäst vapen som ger *3 i anfall.',
-                },
+                title: 'Vapen',
+                description: "Vapen gör dina anfall mer effektiva, och multiplicerar dina tärningskast med vapnets anfallsvärde.",
+                levels: {
+                    1: {
+                        cost: 0,
+                        effect: 1,
+                        description: 'Enkelt vapen som ger *1 i anfall.',
+                    },
+                    2: {
+                        cost: 700,
+                        effect: 2,
+                        description: 'Bättre vapen som ger *2 i anfall.',
+                    },
+                    3: {
+                        cost: 1400,
+                        effect: 3,
+                        description: 'Bäst vapen som ger *3 i anfall.',
+                    },
+                }
             },
             horse: {
-                1: {
-                    cost: 0,
-                    effect: 1,
-                    description: 'Enkel häst som ger +1 i hastighet.',
-                },
-                2: {
-                    cost: 100,
-                    effect: 2,
-                    description: 'Bäst häst som ger +2 i hastighet.',
-                },
-                3: {
-                    cost: 200,
-                    effect: 3,
-                    description: 'Bäst häst som ger +3 i hastighet.',
+                title: 'Häst',
+                description: "Hästar gör dig snabbare på spelplanen. Varje nivå ger +1 i hastighet.",
+                levels: {
+                    1: {
+                        cost: 0,
+                        effect: 0,
+                        description: 'Skruttig häst som tar dig runt på spelplanen.',
+                    },
+                    2: {
+                        cost: 400,
+                        effect: 1,
+                        description: 'Piggare häst som ger +1 i hastighet.',
+                    },
+                    3: {
+                        cost: 800,
+                        effect: 2,
+                        description: 'Spänstig häst som ger +2 i hastighet.',
+                    },
                 },
             },
+        };
+
+        function renderShopUpgrades() {
+            const container = document.getElementById('shop-upgrades');
+            container.replaceChildren(
+                ...Object.values(shop).flatMap(({ title, description, levels }) => {
+                    const heading = document.createElement('h4');
+                    heading.textContent = title;
+
+                    const intro = document.createElement('p');
+                    intro.textContent = description;
+
+                    const table = document.createElement('table');
+                    table.innerHTML = `
+                        <thead>
+                            <tr>
+                                <th>Nivå</th>
+                                <th>Kostnad</th>
+                                <th>Effekt</th>
+                            </tr>
+                        </thead>
+                    `;
+                    const tbody = document.createElement('tbody');
+                    for (const [level, item] of Object.entries(levels)) {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>${level}</td>
+                            <td>${item.cost}</td>
+                            <td>${item.description}</td>
+                        `;
+                        tbody.appendChild(row);
+                    }
+                    table.appendChild(tbody);
+                    return [heading, intro, table];
+                })
+            );
         }
+
+        renderShopUpgrades();
 
         const outerRing = [
             { index: 0, type: 'gold-100' },
