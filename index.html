@@ -595,29 +595,84 @@
         const CX = SIZE / 2;
         const CY = SIZE / 2;
 
+        const shop = {
+            armor: {
+                1: {
+                    cost: 0,
+                    effect: 1,
+                    description: 'Enkel rustning som ger +1 i försvar.',
+                },
+                2: {
+                    cost: 100,
+                    effect: 2,
+                    description: 'Bättre rustning som ger +2 i försvar.',
+                },
+                3: {
+                    cost: 200,
+                    effect: 3,
+                    description: 'Bäst rustning som ger +3 i försvar.',
+                },
+            },
+            weapon: {
+                1: {
+                    cost: 0,
+                    effect: 1,
+                    description: 'Enkel vapen som ger *1 i anfall.',
+                },
+                2: {
+                    cost: 100,
+                    effect: 2,
+                    description: 'Bättre vapen som ger *2 i anfall.',
+                },
+                3: {
+                    cost: 200,
+                    effect: 3,
+                    description: 'Bäst vapen som ger *3 i anfall.',
+                },
+            },
+            horse: {
+                1: {
+                    cost: 0,
+                    effect: 1,
+                    description: 'Enkel häst som ger +1 i hastighet.',
+                },
+                2: {
+                    cost: 100,
+                    effect: 2,
+                    description: 'Bäst häst som ger +2 i hastighet.',
+                },
+                3: {
+                    cost: 200,
+                    effect: 3,
+                    description: 'Bäst häst som ger +3 i hastighet.',
+                },
+            },
+        }
+
         const outerRing = [
             { index: 0, type: 'gold-100' },
-            { index: 1 },
-            { index: 2 },
-            { index: 3, type: 'gold-100' },
+            { index: 1 },   
+            { index: 2, type: 'turn-around' },
+            { index: 3, type: 'gold-200' },
             { index: 4 },
-            { index: 5 },
-            { index: 6, type: 'gold-100'  },
+            { index: 5, type: 'roll-again' },
+            { index: 6, type: 'gold-300'  },
             { index: 7 },
-            { index: 8 },
+            { index: 8, type: 'turn-around' },
             { index: 9 , type: 'gold-100' },
             { index: 10 },
-            { index: 11 },
-            { index: 12 , type: 'gold-100' },
+            { index: 11, type: 'roll-again' },
+            { index: 12 , type: 'gold-200' },
             { index: 13 },
-            { index: 14 },
-            { index: 15 , type: 'gold-100' },
+            { index: 14, type: 'turn-around' },
+            { index: 15 , type: 'gold-300' },
             { index: 16 },
-            { index: 17 },
-            { index: 18 , type: 'gold-100' },
+            { index: 17, type: 'roll-again' },
+            { index: 18, type: 'gold-100-negative' },
             { index: 19 },
-            { index: 20 },
+            { index: 20, type: 'skip-turn' },
         ];
+
         const middleRing = [
             { index: 0, type: 'gold-100'  },
             { index: 1 },
@@ -631,16 +686,17 @@
             { index: 9 },
             { index: 10, type: 'gold-100'  },
             { index: 11 },
-            { index: 12, type: 'gold-100'  },
-            { index: 13 },
+            { index: 12, type: 'gold-100-negative'  },
+            { index: 13, },
         ];
+
         const innerRing = [
             { index: 0, type: 'gold-100'  },
             { index: 1 },
-            { index: 2 },
-            { index: 3, type: 'gold-100'  },
-            { index: 4 },
-            { index: 5, type: 'gold-100'  },
+            { index: 2, type: 'gold-100' },
+            { index: 3 },
+            { index: 4, type: 'gold-100' },
+            { index: 5 },
             { index: 6 },
         ];
 
@@ -649,6 +705,7 @@
             { id: 'middle', tiles: middleRing, inner: 171, outer: 257 },
             { id: 'inner', tiles: innerRing, inner: 86, outer: 171 },
         ];
+
         const CENTER = { id: 'center', index: 0 };
         const CENTER_RADIUS = 86;
 
@@ -683,6 +740,14 @@
 
         const typeToText = {
             'gold-100': '+100',
+            'gold-200': '+200',
+            'gold-300': '+300',
+            'gold-100-negative': '-100',
+            'gold-200-negative': '-200',
+            'gold-300-negative': '-300',
+            'turn-around': 'Byt håll',
+            'skip-turn': 'Stå över',
+            'roll-again': 'Slå igen',
         };
 
         RINGS.forEach((ring) => {
